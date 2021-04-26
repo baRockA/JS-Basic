@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myLilMonster</title>
+    <link rel="stylesheet" href="css/default.css">
+</head>
+
+<body>
+    <div id="anzeige">
+        <h1 id="name">Streichel mich!</h1>
+        <div id="keksanzeige">
+            <img src="img/01_keks.png" alt="Icon für Kekse">
+            <span id="keksanzahl">0</span>
+        </div>
+    </div>
+    <img id="monster" src="img/01_monster_normalzustand.png" alt="Mein Monster" onmousedown="alert('Roar!'); streicheln()">
+    <div id="steuerung">
+        <img id="keks" src="img/01_keks.png" alt="ein Keks" ondblclick="fuettern()">
+    </div>
+    <script>
+        function streicheln() {
+            //Eingabe des Benutzers abfragen und in Variable name speichern (Zuweisung mit =)
+            name = prompt("Gib mir einen Namen!")
+
+            //Verarbeitung wir erstmal nicht gebraucht
+
+            //Ausgabe in einem HTML-Element mit der id name
+            document.getElementById('name').innerText = name
+        }
+
+        function fuettern() {
+            //Eingabe des Benutzers abfragen und in Variable anzahlkekse speichern (Zuweisung mit =)
+            anzahlkekse = prompt("Wie viele Kekse möchtest du geben?")
+
+            //Funktion resetNormal wird aufgerufen nach anzahlkekse in sekunden
+            setTimeout(resetNormal, 1000 * anzahlkekse)
+
+            //Ausgabe in einem HTML-Element mit der id keksanzahl
+            document.getElementById('keksanzahl').innerText = anzahlkekse
+            document.getElementById('monster').src = "img/03_monster_isst_keks.png"
+        }
+
+        function resetNormal() {
+            //Monster zurücksetzen auf normal
+            document.getElementById('monster').src = "img/01_monster_normalzustand.png"
+
+            //Anzahl Kekse zurücksetzen auf 0
+            document.getElementById('keksanzahl').innerText = 0
+        }
+    </script>
+</body>
+
+</html>
