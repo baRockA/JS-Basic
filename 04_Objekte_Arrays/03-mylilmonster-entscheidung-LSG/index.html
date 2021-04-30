@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myLilMonster</title>
+    <link rel="stylesheet" href="css/default.css">
+</head>
+
+<body>
+    <div id="anzeige">
+        <h1 id="name">Streichel mich!</h1>
+        <div id="keksanzeige">
+            <img src="img/01_keks.png" alt="Icon für Kekse">
+            <span id="keksanzahl">X</span>
+        </div>
+    </div>
+    <img id="monster" src="img/01_monster_normalzustand.png" alt="Mein Monster" onmousedown="alert('Roar!'); streicheln()">
+    <div id="sprechblase">Hallo</div>
+    <div id="steuerung">
+        <img id="ssp" src="img/sspes.png" alt="Stein-Schere-Papier-Echse-Spock" onclick="oeffneSSP()">
+        <span id="keksspeicher">X</span>
+        <img id="keks" src="img/01_keks.png" alt="ein Keks" ondblclick="fuettern()" ondragend="einkeks()">
+    </div>
+
+    <div id="ssp-dialog">
+        <p>Wähle eine Option aus, um Kekse zu gewinnen.</p>
+        <div><img src="img/1.png" alt="Schere" onclick="spieleSSP(1)"><img src="img/2.png" alt="Papier" onclick="spieleSSP(2)"><img src="img/3.png" alt="Stein" onclick="spieleSSP(3)"></div>
+        <div id="ssp-showdown">
+            <div id="ssp-spieler">
+                <h2>Deine Wahl</h2>
+                <img id="ssp-spieler-wahl" src="img/.png" alt="Wahl des Spielers bei Schere-Stein-Papier">
+            </div>
+            <div id="ssp-gegner">
+                <h2>Wahl des Gegners</h2>
+                <img id="ssp-gegner-wahl" src="img/.png" alt="Wahl des Gegners bei Schere-Stein-Papier">
+            </div>
+        </div>
+        <p id="ssp-ergebnis"></p>
+        <button onclick="schliesseSSP()">Schließen</button>
+    </div>
+
+    <script>
+        //Konstanten die sich nicht während der Ausführung ändern
+        const verdauungszeit = 2000
+        const skalierung = 100
+
+        //Globale Variablen deklarieren und initialisieren
+        var keksegesamt = 50
+        var name
+        var keksspeicher = 100
+
+        setInterval(update, verdauungszeit)
+
+        function update() {
+            keksegesamt--
+            document.getElementById('keksanzahl').innerText = keksegesamt
+
+            document.getElementById('keksspeicher').innerText = keksspeicher
+
+            if (keksegesamt > 70) {
+                if (keksegesamt > 80) {
+                    if (keksegesamt > 90) {
+                        document.getElementById('monster').src = "img/06_monster_schlecht_gruen.png"
+                    } else {
+                        document.getElementById('monster').src = "img/05_monster_isst_keks_dick_02.png"
+                    }
+                } else {
+                    document.getElementById('monster').src = "img/04_monster_isst_keks_dick_01.png"
+                }
+            } else if (keksegesamt < 40) {
+                document.getElementById('monster').src = "img/07_monster_schmollt_kein_keks.png"
+                if (keksegesamt < 30) {
+                    document.getElementById('monster').src = "img/08_monster_betteln_kein_keks_duenn_01.png"
+                    if (keksegesamt < 20) {
+                        document.getElementById('monster').src = "img/09_monster_betteln_kein_keks_duenn_02.png"
+                        if (keksegesamt < 10) {
+                            document.getElementById('monster').src = "img/00_monster_schlaf.png"
+                            if (keksegesamt <= 0) {
+                                document.getElementById('monster').src = "img/010_monster_rip.png"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function einkeks() {
+            if (keksspeicher > 0) {
+                keksegesamt++
+                document.getElementById('keksanzahl').innerText = keksegesamt
+
+                keksspeicher--
+                document.getElementById('keksspeicher').innerText = keksspeicher
+            }
+        }
+
+        function streicheln() {
+            if (!name) {
+                //Eingabe des Benutzers abfragen und in Variable name speichern (Zuweisung mit =)
+                name = prompt('Gib mir einen Namen!')
+
+                //Verarbeitung wir erstmal nicht gebraucht
+
+                //Ausgabe in einem HTML-Element mit der id name
+                document.getElementById('name').innerText = name
+            }
+        }
+
+        function fuettern() {
+            if (keksspeicher > 0) {
+                //Eingabe des Benutzers abfragen und in lokaler Variable anzahlkekse speichern (Zuweisung mit =)
+                let anzahlkekse_string = prompt('Wie viele Kekse möchtest du geben?')
+                let anzahlkekse = parseInt(anzahlkekse_string)
+                if (anzahlkekse <= keksspeicher) {
+
+                    //Verarbeitung
+                    keksegesamt = keksegesamt + anzahlkekse
+                    keksspeicher -= anzahlkekse
+                        //Funktion resetNormal wird aufgerufen nach keksegesamt  in sekunden
+                    setTimeout(resetNormal, verdauungszeit * keksegesamt)
+
+                    //Ausgabe in einem HTML-Element mit der id keksanzahl
+                    document.getElementById('keksanzahl').innerText = anzahlkekse
+                    document.getElementById('monster').src = 'img/03_monster_isst_keks.png'
+                    document.getElementById('keksspeicher').innerText = keksspeicher
+                    document.getElementById('sprechblase').innerText = 'Danke für ' + anzahlkekse + ' Mampf!'
+                } else {
+                    //Verarbeitung
+                    setTimeout(resetNormal, verdauungszeit)
+
+                    //Ausgabe
+                    document.getElementById('monster').src = 'img/07_monster_schmollt_kein_keks.png'
+                    document.getElementById('sprechblase').innerText = 'Nicht genug Mampf!'
+                }
+            }
+        }
+
+        function resetNormal() {
+            //Monster zurücksetzen auf normal
+            document.getElementById('monster').src = "img/01_monster_normalzustand.png"
+
+            //Anzahl Kekse zurücksetzen auf 0
+            document.getElementById('keksanzahl').innerText = 0
+        }
+    </script>
+    <script src="js/ssp.js"></script>
+</body>
+
+</html>

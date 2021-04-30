@@ -1,0 +1,144 @@
+body {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-content: center;
+    background-image: url("../img/finalfonteir_1920x1080.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#anzeige {
+    grid-row: 1;
+    grid-column: 1/4;
+    justify-content: center;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+#name {
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: center;
+    color: white;
+}
+
+#keksanzeige {
+    grid-row: 1;
+    grid-column: 3;
+    font-size: 2em;
+}
+
+#keksanzeige>img {
+    width: 50px;
+}
+
+#monster {
+    width: 100%;
+    grid-row: 2;
+    grid-column: 2;
+}
+
+#steuerung {
+    grid-row: 3;
+    grid-column: 1/4;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50px 50px;
+    border: 5px solid white;
+    text-align: center;
+    justify-content: center;
+}
+
+#keks {
+    opacity: 0.5;
+    width: 30%;
+    grid-row: 1;
+    grid-column: 2;
+    justify-self: center;
+}
+
+#keks:hover {
+    opacity: 1;
+}
+
+#keksspeicher {
+    padding-top: 1.5em;
+    grid-row: 1;
+    grid-column: 2;
+    font-size: 2em;
+}
+
+#sprechblase {
+    grid-row: 2;
+    grid-column: 3;
+    text-align: center;
+    font-size: 2em;
+    margin: 50px;
+    padding: 20px;
+    position: relative;
+    opacity: 0.75;
+    background: #dfa8e4;
+    border: 10px solid #ff2aed;
+    border-radius: 50px;
+}
+
+#sprechblase:after,
+#sprechblase:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+#sprechblase:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #dfa8e4;
+    border-width: 50px;
+    margin-top: -50px;
+}
+
+#sprechblase:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-right-color: #ff2aed;
+    border-width: 64px;
+    margin-top: -64px;
+}
+
+#ssp {
+    opacity: 0.5;
+    width: 25%;
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: center;
+    background-color: white;
+    border-radius: 50%;
+}
+
+#ssp:hover {
+    opacity: 1;
+}
+
+#ssp-dialog {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 5px solid white;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+#ssp-showdown {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 3px solid orange;
+    margin: 5px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
